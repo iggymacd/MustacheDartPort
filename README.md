@@ -31,7 +31,7 @@ It was a terrific help in finding my way around Futures in the Dart language.
 - Optimizations
 - Better name for the library
 
-## Documentation:
+## Features:
 
 - Data is provided by objects or Maps and are accessed via non-private fields or maps
 - Futures are used where potentially expensive tasks are performed 
