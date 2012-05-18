@@ -114,26 +114,26 @@ Might be populated by the following:
   data['contact'] = 'John Doe';
 
 And would result in:
-<pre>
-<html>
-<head>
-  <title>Sample Template</title>
-</head>
-<br></br>
-<b>Goes by the name Moe.</b>
+    
+    <html>
+    <head>
+    <title>Sample Template</title>
+    </head>
+    <br></br>
+    <b>Goes by the name Moe.</b>
     <b>Lives in Sydney.</b>
     <b>Lives in Glace Bay.</b>
-<b>Goes by the name Larry.</b>
+    <b>Goes by the name Larry.</b>
     <b>Lives in Halifax.</b>
-<b>Goes by the name Curly.</b>
+    <b>Goes by the name Curly.</b>
     <b>Lives in Truro.</b>
-<b>John Doe</b>
-<br></br>
+    <b>John Doe</b>
+    <br></br>
     <b>1967</b>
     <b>1955</b>
     <b>1949</b>
-<b>&copy;</b>
-</pre>
+    <b>&copy;</b>
+    
 Usage, as shown in one the tests:
 
   TemplateFactory tf = new TemplateFactory();
