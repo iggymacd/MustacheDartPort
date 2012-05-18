@@ -14,8 +14,9 @@ as well as Dart, so I have come across some other template solutions in many of 
 have been looking at lately. I came across Mustache, and was thinking that there are so many language
 implementations of Mustache, it made sense to start one for Dart.
 
-`Starting` is the key word here. There are features that are still not implemented, but there are enough
-features implemented to get started and accomplish a fair bit.
+The project is very young and rough around the edges. There are features that are still not implemented, 
+but there are enough features implemented to get started and accomplish a fair bit. There is also many 
+more tests that need to be written.
 
 Thanks to Seth Ladd for his blog;
 
@@ -30,6 +31,7 @@ It was a terrific help in finding my way around Futures in the Dart language.
 - API feedback
 - Optimizations
 - Better name for the library
+- More tests
 
 ## Features:
 
