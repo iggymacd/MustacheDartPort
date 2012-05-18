@@ -114,7 +114,7 @@ Might be populated by the following:
   data['contact'] = 'John Doe';
 
 And would result in:
-`
+<pre>
 <html>
 <head>
   <title>Sample Template</title>
@@ -133,7 +133,7 @@ And would result in:
     <b>1955</b>
     <b>1949</b>
 <b>&copy;</b>
-`
+</pre>
 Usage, as shown in one the tests:
 
   TemplateFactory tf = new TemplateFactory();
