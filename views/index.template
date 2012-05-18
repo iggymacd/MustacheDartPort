@@ -1,0 +1,15 @@
+<html>
+{{>header}}
+<br></br>
+{{#stooges}}
+<b>Goes by the name {{name}}.</b>
+  {{#addresses}}
+    <b>Lives in {{city}}.</b>
+  {{/addresses}}
+{{/stooges}}
+<b>{{contact}}</b>
+<br></br>
+  {{#episodes}}
+    <b>{{year}}</b>
+  {{/episodes}}
+{{>footer}}
