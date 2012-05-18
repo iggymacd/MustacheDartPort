@@ -76,31 +76,31 @@ iteration. In this way we can loop over collections.
 
 Example template file:
 
-<html>
-{{>header}}
-<br></br>
-{{#stooges}}
-<b>Goes by the name {{name}}.</b>
-  {{#addresses}}
+  <html>
+  {{>header}}
+  <br></br>
+  {{#stooges}}
+  <b>Goes by the name {{name}}.</b>
+    {{#addresses}}
     <b>Lives in {{city}}.</b>
-  {{/addresses}}
-{{/stooges}}
-<b>{{contact}}</b>
-<br></br>
+    {{/addresses}}
+  {{/stooges}}
+  <b>{{contact}}</b>
+  <br></br>
   {{#episodes}}
     <b>{{year}}</b>
   {{/episodes}}
-{{>footer}}
+  {{>footer}}
 
 with included templates from separate files:
 
-<head>
-  <title>{{title}}</title>
-</head>
+  <head>
+    <title>{{title}}</title>
+  </head>
 
 and
 
-<b>{{copyright}}</b>
+  <b>{{copyright}}</b>
 
 Might be populated by the following:
 
