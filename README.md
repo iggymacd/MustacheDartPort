@@ -76,42 +76,42 @@ iteration. In this way we can loop over collections.
 
 Example template file:
 
-  <html>
-  {{>header}}
-  <br></br>
-  {{#stooges}}
-  <b>Goes by the name {{name}}.</b>
+    <html>
+    {{>header}}
+    <br></br>
+    {{#stooges}}
+    <b>Goes by the name {{name}}.</b>
     {{#addresses}}
     <b>Lives in {{city}}.</b>
     {{/addresses}}
-  {{/stooges}}
-  <b>{{contact}}</b>
-  <br></br>
-  {{#episodes}}
+    {{/stooges}}
+    <b>{{contact}}</b>
+    <br></br>
+    {{#episodes}}
     <b>{{year}}</b>
-  {{/episodes}}
-  {{>footer}}
+    {{/episodes}}
+    {{>footer}}
 
 with included templates from separate files:
 
-  <head>
-    <title>{{title}}</title>
-  </head>
+    <head>
+      <title>{{title}}</title>
+    </head>
 
 and
 
-  <b>{{copyright}}</b>
+    <b>{{copyright}}</b>
 
 Might be populated by the following:
 
-  Map data = new Map();
-  data['header'] = {'title':'Sample Template'};
-  data['footer'] = {'copyright':'&copy;'};
-  data['stooges'] = [ { "name": "Moe", 'addresses':[ { "city": "Sydney" }, { "city": "Glace Bay" } ] },
+    Map data = new Map();
+    data['header'] = {'title':'Sample Template'};
+    data['footer'] = {'copyright':'&copy;'};
+    data['stooges'] = [ { "name": "Moe", 'addresses':[ { "city": "Sydney" }, { "city": "Glace Bay" } ] },
                       { "name": "Larry", 'addresses':[ { "city": "Halifax" } ] },
                       { "name": "Curly", 'addresses':[ { "city": "Truro" } ] } ];
-  data['episodes'] = [ { "year": "1967" },{ "year": "1955" },{ "year": "1949" } ];
-  data['contact'] = 'John Doe';
+    data['episodes'] = [ { "year": "1967" },{ "year": "1955" },{ "year": "1949" } ];
+    data['contact'] = 'John Doe';
 
 And would result in:
     
@@ -136,12 +136,12 @@ And would result in:
     
 Usage, as shown in one the tests:
 
-  TemplateFactory tf = new TemplateFactory();
-  Future<Template> futureTemplate = tf.compile('views/index.template');
-  futureTemplate.handleException(onException(exception){
+    TemplateFactory tf = new TemplateFactory();
+    Future<Template> futureTemplate = tf.compile('views/index.template');
+    futureTemplate.handleException(onException(exception){
     print('error occurred while processing!');
-  });
-  futureTemplate.chain((Template template) => template.render(data))
+    });
+    futureTemplate.chain((Template template) => template.render(data))
     .then((String returnedString){
       //process returned string
     });
