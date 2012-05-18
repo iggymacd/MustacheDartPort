@@ -134,7 +134,7 @@ And would result in:
     <b>1949</b>
     <b>&copy;</b>
     
-Usage, as shown in one the tests:
+Usage, as shown in one of the tests:
 
     TemplateFactory tf = new TemplateFactory();
     Future<Template> futureTemplate = tf.compile('views/index.template');
