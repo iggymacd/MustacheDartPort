@@ -48,5 +48,6 @@ void checkResult(String result){
 <b>&copy;</b>
 ''';
   Expect.equals(expected, result);
+  print('all tests have passed...');
 }
 

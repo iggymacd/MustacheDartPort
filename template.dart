@@ -26,7 +26,7 @@ class Template{
         result = result.replaceAll(blocks[key].sourceField, blockRenderResult);
       }else if(includes.containsKey(key)){
         //process include recursively
-        print('process include');
+        //print('process include');
         TemplateFactory tf = new TemplateFactory();
         //TODO - allow for with and without extension on file - replace /views with variable
         Future futureTemplate = tf.compile('views/$key.template');
@@ -36,9 +36,7 @@ class Template{
               });
             futureTemplate.chain((Template template) => template.render(value))
             .transform(transformation(returnedString){
-              print('here..................');
-              print(returnedString.trim());
-              print('here..................');
+//              print(returnedString.trim());
               result = result.replaceAll('{{>${includes[key].filename}}}', returnedString.trim());
             });
       }else{
@@ -49,7 +47,7 @@ class Template{
       completer.completeException(e);
     }
     Futures.wait(futuresPending).then(onComplete(List futureResults){
-      print('result is $result');
+      //print('result is $result');
       completer.complete(result);
     });
     
@@ -61,7 +59,7 @@ class Template{
   * each child element (blocks and variables and includes)
   */
   void parse(String source){
-    print('in parse, parsing $source');
+    //print('in parse, parsing $source');
     //identify outermost blocks
     if(!BLOCK_REG_EX.hasMatch(source)){
       print('no blocks found...');
@@ -90,7 +88,7 @@ class Template{
       blockName = m.group(1);
       blockContent = m.group(2);
       blockSource = m.group(0);
-      print('found block $blockName');
+      //print('found block $blockName');
       blocks[blockName] = new Block(blockName, blockContent, blockSource);
     }
     //check for tags outside the blocks 
@@ -104,7 +102,7 @@ class Template{
     String tagName2;
     for (Match m2 in tagMatches2) {
       tagName2 = m2.group(1);
-      print('found tag $tagName2');
+      //print('found tag $tagName2');
       tags[tagName2] = new Tag(tagName2);
       tags[tagName2].sourceField = m2.group(0);
     }
@@ -113,7 +111,7 @@ class Template{
     String includeName;
     for (Match m3 in includeMatches) {
       includeName = m3.group(1);
-      print('found include $includeName');
+      //print('found include $includeName');
       includes[includeName] = new Include(includeName);
       includes[includeName].sourceField = m3.group(0);
     }

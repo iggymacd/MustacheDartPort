@@ -14,10 +14,10 @@ class TemplateParser {
       sb.add('${reader.readLine()}\n');
     };
     reader.onClosed = (){
-      print('in onClosed');
+      //print('in onClosed');
       inStream.close();
       result = new Template(sb.toString());
-      print(result);
+      //print(result);
       callback( result );
     };
     reader.onError = (e){
