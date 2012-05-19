@@ -1,7 +1,5 @@
 #library('Templates');
 #import('dart:io');
-#import('../ThirdParty/dartwatch-JsonObject/JsonObject.dart');
-#import('../ThirdParty/log4dart/Lib.dart');
 #source('tag.dart');
 #source('block.dart');
 #source('template_factory.dart');
