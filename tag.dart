@@ -1,5 +1,5 @@
 class Tag {
-  Tag(this.name);
+  Tag(this.name, [this.sourceField]);
   String name;
   String sourceField;
 }
