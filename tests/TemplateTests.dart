@@ -1,5 +1,6 @@
 #import('../Lib.dart');
 #import('dart:io');//need this, even if the Lib.dart file contains an import
+#import('../template.dart');
 
 void main(){
   testTemplateFromFile();
