@@ -1,3 +1,8 @@
+#library('template');
+#import('dart:io');//need this, even if the Lib.dart file contains an import
+#import('Lib.dart');
+#import('block.dart');
+
 class Template{
   Template(this.content):
     blocks = new Map<String, Block>(),
@@ -7,12 +12,12 @@ class Template{
       parse(content);
   }
 
-  /*
-  * Method will accept a Map, and populate a template 
-  * Each child element (blocks and variables) will be processed as well
-  * as any <included> directives
-  * In case processing takes some significant time, we leverage a Future
-  */
+  /**
+   * Method will accept a Map, and populate a template
+   * Each child element (blocks and variables) will be processed as well
+   * as any <included> directives
+   * In case processing takes some significant time, we leverage a Future
+   */
   Future<String> render(Map data){
     var completer = new Completer();
     String result = content;
@@ -50,14 +55,14 @@ class Template{
       //print('result is $result');
       completer.complete(result);
     });
-    
+
     return completer.future;
   }
-  
-  /*
-  * Method will accept a string, and recursively identify and store 
-  * each child element (blocks and variables and includes)
-  */
+
+  /**
+   * Method will accept a string, and recursively identify and store
+   * each child element (blocks and variables and includes)
+   */
   void parse(String source){
     //print('in parse, parsing $source');
     //identify outermost blocks
@@ -68,54 +73,16 @@ class Template{
         return;
       }
       // if we get here there are tags present
-      Iterable<Match> tagMatches = VAR_REG_EX.allMatches(source);
-      String tagName;
-      for (Match m in tagMatches) {
-        tagName = m.group(1);
-        //print('process tag $tagName');
-        tags[tagName] = new Tag(tagName);
-        tags[tagName].sourceField = m.group(0);
-      }
+      tags = setTags(tags, VAR_REG_EX.allMatches(source));
       return;
-      
     }
     //if we get here, there are blocks present
-    Iterable<Match> blockMatches = BLOCK_REG_EX.allMatches(source);
-    String blockName;
-    String blockContent;
-    String blockSource;
-    for (Match m in blockMatches) {
-      blockName = m.group(1);
-      blockContent = m.group(2);
-      blockSource = m.group(0);
-      //print('found block $blockName');
-      blocks[blockName] = new Block(blockName, blockContent, blockSource);
-    }
-    //check for tags outside the blocks 
-    String strippedSource = source;
-    blocks.forEach(f(String key, Block value){
-      ////print('stripping ${value.source}');
-      strippedSource = strippedSource.replaceAll(value.sourceField, '');
-    });
-    ////print('strippedSource is $strippedSource');
-    Iterable<Match> tagMatches2 = VAR_REG_EX.allMatches(strippedSource);
-    String tagName2;
-    for (Match m2 in tagMatches2) {
-      tagName2 = m2.group(1);
-      //print('found tag $tagName2');
-      tags[tagName2] = new Tag(tagName2);
-      tags[tagName2].sourceField = m2.group(0);
-    }
+    List<Object> vals = setBlocks(blocks, BLOCK_REG_EX.allMatches(source), source);
+    String strippedSource = vals[0];
+    blocks = vals[1];
 
-    Iterable<Match> includeMatches = INCLUDE_REG_EX.allMatches(strippedSource);
-    String includeName;
-    for (Match m3 in includeMatches) {
-      includeName = m3.group(1);
-      //print('found include $includeName');
-      includes[includeName] = new Include(includeName);
-      includes[includeName].sourceField = m3.group(0);
-    }
-
+    tags = setTags(tags, VAR_REG_EX.allMatches(strippedSource));
+    includes = setIncludes(includes, INCLUDE_REG_EX.allMatches(strippedSource));
   }
 
   //instance variables
