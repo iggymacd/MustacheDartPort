@@ -1,3 +1,7 @@
+#library('block');
+#import('dart:io');//need this, even if the Lib.dart file contains an import
+#import('Lib.dart');
+
 class Block {
   Block(this.name, this.content, this.sourceField):
     blocks = new Map<String, Block>(),
@@ -6,7 +10,7 @@ class Block {
   }
 
   /*
-  * Method will accept a List of Maps, and populate a template. 
+  * Method will accept a List of Maps, and populate a template.
   * Each child element (blocks and variables) will be processed.
   * returns a String representing the rendered block
   */
@@ -39,7 +43,7 @@ class Block {
   }
 
   /*
-  * method will accept a string, and recursively identify and store 
+  * method will accept a string, and recursively identify and store
   * each child element (blocks and variables)
   */
   void parse(String source){
@@ -51,46 +55,17 @@ class Block {
         return;
       }
       // if we get here there are tags present
-      Iterable<Match> tagMatches = VAR_REG_EX.allMatches(source);
-      String tagName;
-      for (Match m in tagMatches) {
-        tagName = m.group(1);
-        //print('process tag $tagName');
-        tags[tagName] = new Tag(tagName);
-        tags[tagName].sourceField = m.group(0);
-      }
+      tags = setTags(tags, VAR_REG_EX.allMatches(source));
       return;
-      
+
     }
     //if we get here, there are blocks present
-    Iterable<Match> blockMatches = BLOCK_REG_EX.allMatches(source);
-    String blockName;
-    String blockContent;
-    String blockSource;
-    for (Match m in blockMatches) {
-      blockName = m.group(1);
-      blockContent = m.group(2);
-      blockSource = m.group(0);
-      //print('found block $blockName');
-      blocks[blockName] = new Block(blockName, blockContent, blockSource);
-    }
-    //check for tags outside the blocks 
-    String strippedSource = source;
-    blocks.forEach(f(String key, Block value){
-      ////print('stripping ${value.source}');
-      strippedSource = strippedSource.replaceAll(value.sourceField, '');
-    });
-    ////print('stsourceFieldSource is $strippedSource');
-    Iterable<Match> tagMatches2 = VAR_REG_EX.allMatches(strippedSource);
-    String tagName2;
-    for (Match m2 in tagMatches2) {
-      tagName2 = m2.group(1);
-      //print('process tag $tagName2');
-      tags[tagName2] = new Tag(tagName2);
-      tags[tagName2].sourceField = m2.group(0);
-    }
+    List<Object> vals = setBlocks(blocks, BLOCK_REG_EX.allMatches(source), source);
+    String strippedSource = vals[0];
+    blocks = vals[1];
+    tags = setTags(tags, VAR_REG_EX.allMatches(strippedSource));
   }
-  
+
   String name;
   File fileName;
   Directory fileDirectory;
