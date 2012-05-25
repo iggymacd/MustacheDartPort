@@ -1,5 +1,5 @@
 class Include {
-  Include(this.filename);
+  Include(this.filename, [this.sourceField]);
   String filename;
   String sourceField;
 }
